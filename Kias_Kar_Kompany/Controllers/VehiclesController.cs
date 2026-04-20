@@ -19,23 +19,15 @@ namespace Kias_Kar_Kompany.Controllers
         // GET: VehiclesController
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Vehicle.ToListAsync());
+            var vehicle = _context.Vehicle.ToList();
+            return View(vehicle);
         }
 
         // GET: VehiclesController/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var vehicle = await _context.Vehicle
-                .FirstOrDefaultAsync(m => m.VehicleId == id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
+            var vehicle = _context.Vehicle.Find(id);
+            if (vehicle == null) return NotFound();
             return View(vehicle);
         }
 
@@ -65,5 +57,8 @@ namespace Kias_Kar_Kompany.Controllers
         {
             return _context.Vehicle.Any(e => e.VehicleId == id );
         }
+
+       
+
     }
 }

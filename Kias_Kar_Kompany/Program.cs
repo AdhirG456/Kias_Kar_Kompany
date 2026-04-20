@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Kias_Kar_KompanyContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Kias_Kar_KompanyContext")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Kias_Kar_KompanyContext"),
+    sqlOptions => sqlOptions.EnableRetryOnFailure()));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
